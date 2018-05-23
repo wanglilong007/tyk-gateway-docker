@@ -1,0 +1,22 @@
+version: '3'
+services:
+  redis:
+    image: redis
+  mongo:
+    image: mongo
+  tyk_gateway:
+    image: tykio/tyk-gateway
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/root/tyk/apps:/opt/tyk-gateway/apps"
+      - "/root/tyk/middleware:/opt/tyk-gateway/middleware"
+      - "/root/tyk/js:/opt/tyk-gateway/js"
+      - "/root/tyk/templates:/opt/tyk-gateway/templates"
+      - "/root/tyk/tyk.with_dashboard.conf:/opt/tyk-gateway/tyk.conf"
+  tyk_dashboard:
+    image: tykio/tyk-dashboard
+    ports:
+      - "3000:3000"
+  tyk_pump:
+    image: tykio/tyk-pump-docker-pub
